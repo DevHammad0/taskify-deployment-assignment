@@ -1,0 +1,17 @@
+HTTPS health via taskify.click to new app IP: OK
+HTTP redirect: 301 -> https://taskify.click/
+HTTPS app content: Taskify Deployment Guestbook Topic 
+Bare-IP HTTP: curl: (52) Empty reply from server
+HTTP 000 (empty reply expected)
+Bare-IP HTTPS: curl: (35) TLS connect error: error:0A000458:SSL routines::tlsv1 unrecognized name
+HTTP 000
+Protected .env URL: HTTP 403
+Production env file: 600 deployer:www-data
+not-readable-by-www-data
+Hostinger authoritative A records: apex=13.50.122.152  www=13.50.122.152 
+Cloudflare resolver cache: taskify.click.		2991	IN	A	13.60.197.161
+Google resolver: taskify.click.		3600	IN	A	13.50.122.152
+Certificate:
+- Domains: taskify.click www.taskify.click
+- Expiry: 2027-02-13 21:51 UTC
+- Auto-renewal: certbot.timer enabled

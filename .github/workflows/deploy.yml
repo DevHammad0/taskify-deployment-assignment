@@ -1,0 +1,67 @@
+name: Test and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: taskify-production
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo_sqlite, xml, curl, zip, bcmath
+          coverage: none
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+      - name: Prepare test environment
+        run: |
+          cp .env.example .env
+          php artisan key:generate --force
+        env:
+          APP_ENV: testing
+          APP_DEBUG: false
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ':memory:'
+          CACHE_STORE: array
+          SESSION_DRIVER: array
+          QUEUE_CONNECTION: sync
+      - name: Run tests
+        run: php artisan test
+        env:
+          APP_ENV: testing
+          APP_DEBUG: false
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ':memory:'
+          CACHE_STORE: array
+          SESSION_DRIVER: array
+          QUEUE_CONNECTION: sync
+
+  deploy:
+    needs: test
+    runs-on: [self-hosted, linux, x64, taskify-app]
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy release
+        run: ./scripts/deploy-release.sh "$GITHUB_SHA"
+
+  verify:
+    needs: deploy
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check the public health endpoint
+        run: curl --fail --silent --show-error --retry 10 --retry-delay 5 "$APP_URL/health"
+        env:
+          APP_URL: https://taskify.click

@@ -1,0 +1,17 @@
+VMs:
+app-vm
+Ubuntu 24.04.5 LTS
+172.31.36.45 
+app-local-mysql-active=inactive
+app-local-mysql-enabled=disabled
+db-vm
+Ubuntu 24.04.5 LTS
+172.31.45.40 
+rows=3
+1 | Haroon | general | Task 1 data that must survive the database move.
+2 | Recovery test | general | Added after the tested backup; expected to be missing after restore.
+3 | Recovery test | general | Added during recovery outage; replayed after db-vm restart.
+GRANT USAGE ON *.* TO `taskify_app`@`172.31.36.45`
+GRANT ALL PRIVILEGES ON `taskify`.* TO `taskify_app`@`172.31.36.45`
+GRANT USAGE ON *.* TO `taskify_backup`@`172.31.36.45`
+GRANT SELECT, SHOW VIEW, EVENT, TRIGGER ON `taskify`.* TO `taskify_backup`@`172.31.36.45`

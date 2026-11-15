@@ -1,0 +1,10 @@
+Disaster drill timeline (UTC, 2026-11-15):
+
+- 22:27:28: verified compressed backup taskify-20261115T222728Z.sql.gz; it contained the Task 1 row.
+- After backup: added “Added after the tested backup; expected to be missing after restore.” to db-vm.
+- 22:28:03: requested db-vm stop.
+- 22:28:23: db-vm stopped; /health returned HTTP 503.
+- 22:29:05: restored the backup to the stopped local MySQL server on app-vm; /health returned OK. Unavailable from stop request to successful health check: about 62 seconds.
+- The backup restore contained the Task 1 row and omitted the post-backup row, as expected. Added “Added during recovery outage; replayed after db-vm restart.” to the local restored DB.
+- Restarted db-vm, switched Laravel back to it, and replayed the outage entry. Final primary DB count: 3 rows (Task 1, post-backup, and recovery-period entries).
+- Stopped and disabled local MySQL again after recovery.

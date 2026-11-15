@@ -1,0 +1,11 @@
+Schedule:
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+30 0 * * * root /usr/local/sbin/taskify-cleanup-logs
+Verified temp-directory cleanup behavior:
+Run 1: compressed laravel-2020-01-01.log; deleted expired laravel-2019-01-01.log.gz; kept .gitignore, notes.txt, and the current-day log.
+Run 2: same filenames; no additional compression or deletion.
+Warning written to cleanup.log at test threshold 50 bytes.
+OS logrotate rules:
+/etc/logrotate.d/mysql-server
+/etc/logrotate.d/nginx

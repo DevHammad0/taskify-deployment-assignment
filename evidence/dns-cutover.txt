@@ -1,0 +1,19 @@
+DNS cutover and old VM cleanup
+
+Hostinger A records for taskify.click and www.taskify.click: 13.50.122.152
+Google Public DNS A answers for both names: 13.50.122.152
+
+Direct HTTPS health checks pinned to the new app IP (2026-11-15 23:07 UTC):
+  https://taskify.click/health: HTTP 200, body OK
+  https://www.taskify.click/health: HTTP 200, body OK
+
+AWS state after cutover:
+  app-vm i-034fbdf0a66fee79e: running, 13.50.122.152
+  db-vm i-0e810f37b94a2d517: running, 51.20.1.150
+  sabzicart-web-server i-0aa73d45d513ff53d: stopped, no public IP
+
+The sabzicart-web-server was stopped on 2026-11-15 at the user's request. It was not terminated. Cloudflare's recursive resolver still had the former apex A answer cached when the stop was made; requests through that stale cache may fail until its TTL expires.
+
+Follow-up DNS check (2026-11-15 23:12 UTC): both Hostinger authoritative nameservers and Google Public DNS returned 13.50.122.152 for apex and www. Cloudflare's 1.1.1.1 resolver still returned 13.60.197.161 for apex with 1,780 seconds remaining; www returned the new address.
+
+I requested a public cache refresh for the taskify.click A record using Cloudflare's documented 1.1.1.1 purge tool. The request returned HTTP 200 and said it was queued, but checks at 2026-11-15 23:26 UTC still returned 13.60.197.161 for the apex with 3,254 seconds remaining. Google DNS and both Hostinger authoritative nameservers returned 13.50.122.152. The workstation's stale `/etc/hosts` entry mapping both names to 192.168.1.32 was removed. Normal local resolution now returns 13.50.122.152, and `https://taskify.click/health` and `https://www.taskify.click/health` both returned HTTP 200 with body `OK`.

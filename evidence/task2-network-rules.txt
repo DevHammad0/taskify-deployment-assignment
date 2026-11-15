@@ -1,0 +1,11 @@
+VPC security groups in eu-north-1:
+
+app-vm security group: sg-0f0ac9b52bd8db5c0
+- TCP 22 from admin workstation public address /32
+- TCP 80 and 443 from 0.0.0.0/0
+
+db-vm security group: sg-088fc643fe9c6a72d
+- TCP 3306 from sg-0f0ac9b52bd8db5c0 only
+- TCP 22 from sg-0f0ac9b52bd8db5c0 only
+
+MySQL on db-vm listens on 172.31.45.40. The app MySQL account is taskify_app@172.31.36.45. The read-only backup account is taskify_backup@172.31.36.45.

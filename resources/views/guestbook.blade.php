@@ -20,7 +20,7 @@
     <header>
         <p class="muted">Laravel deployment assignment</p>
         <h1>Taskify Deployment Guestbook</h1>
-        <p class="muted">Every note is stored in MySQL and survives a deployment.</p>
+        <p class="muted">Leave a note for others. Your message stays saved after deployments.</p>
     </header>
 
     @if (session('status')) <p class="status">{{ session('status') }}</p> @endif

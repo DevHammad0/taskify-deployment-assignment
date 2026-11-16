@@ -1,12 +1,15 @@
-Current backup archives:
+Selected backup files and permissions checked at 2026-11-16 00:18 UTC:
 taskify-20261115T222455Z.sql.gz 1761 bytes mode=600 owner=taskify-backup:taskify-backup
 taskify-20261115T222558Z.sql.gz 1761 bytes mode=600 owner=taskify-backup:taskify-backup
 taskify-20261115T222728Z.sql.gz 1761 bytes mode=600 owner=taskify-backup:taskify-backup
 taskify-20261115T223345Z.sql.gz 1867 bytes mode=600 owner=taskify-backup:taskify-backup
+taskify-20261115T225516Z.sql.gz: gzip check passed; contains the topic column and all three guestbook rows.
+taskify-20261115T231501Z.sql.gz 1914 bytes mode=600 owner=taskify-backup:taskify-backup
+taskify-20261116T001501Z.sql.gz 1979 bytes mode=600 owner=taskify-backup:taskify-backup; includes the location column.
 Permissions:
 700 taskify-backup:taskify-backup /var/backups/taskify
 600 taskify-backup:taskify-backup /etc/taskify/backup.cnf
-Post-migration backup: taskify-20261115T225516Z.sql.gz (created after the `topic` migration); `gzip -t` passed and its dump contains the `topic` column and all three guestbook rows.
+Post-migration backup: taskify-20261115T225516Z.sql.gz (created after the topic migration); gzip validation passed and its dump contains the topic column and all three guestbook rows.
 Schedule:
 SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -17,3 +20,6 @@ Recent log:
 2026-11-15T22:33:45Z OK backup created: taskify-20261115T223345Z.sql.gz
 2026-11-15T22:33:48Z ERROR protected MySQL defaults file is missing or unreadable
 2026-11-15T22:33:48Z ERROR backup failed (exit=1); incomplete output removed
+2026-11-15T23:15:02Z OK backup created: taskify-20261115T231501Z.sql.gz (1914 bytes, mode 0600)
+2026-11-16T00:15:01Z OK backup created: taskify-20261116T001501Z.sql.gz (1979 bytes, mode 0600)
+The 00:15 backup passed gzip validation and includes the guestbook location column.

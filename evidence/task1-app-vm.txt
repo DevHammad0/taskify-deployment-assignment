@@ -9,7 +9,7 @@ Protected .env URL: HTTP 403
 Production env file: 600 deployer:www-data
 not-readable-by-www-data
 Hostinger authoritative A records: apex=13.50.122.152  www=13.50.122.152 
-Cloudflare resolver cache: taskify.click.		2991	IN	A	13.60.197.161
+Cloudflare resolver cache during DNS cutover (historical snapshot): taskify.click.		2991	IN	A	13.60.197.161
 Google resolver: taskify.click.		3600	IN	A	13.50.122.152
 Certificate:
 - Domains: taskify.click www.taskify.click

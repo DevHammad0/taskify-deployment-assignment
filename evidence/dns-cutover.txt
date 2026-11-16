@@ -17,3 +17,7 @@ The sabzicart-web-server was stopped on 2026-11-15 at the user's request. It was
 Follow-up DNS check (2026-11-15 23:12 UTC): both Hostinger authoritative nameservers and Google Public DNS returned 13.50.122.152 for apex and www. Cloudflare's 1.1.1.1 resolver still returned 13.60.197.161 for apex with 1,780 seconds remaining; www returned the new address.
 
 I requested a public cache refresh for the taskify.click A record using Cloudflare's documented 1.1.1.1 purge tool. The request returned HTTP 200 and said it was queued, but checks at 2026-11-15 23:26 UTC still returned 13.60.197.161 for the apex with 3,254 seconds remaining. Google DNS and both Hostinger authoritative nameservers returned 13.50.122.152. The workstation's stale `/etc/hosts` entry mapping both names to 192.168.1.32 was removed. Normal local resolution now returns 13.50.122.152, and `https://taskify.click/health` and `https://www.taskify.click/health` both returned HTTP 200 with body `OK`.
+
+Recheck (2026-11-16 00:18 UTC): this workstation resolved taskify.click to 13.50.122.152; apex and www health checks both returned HTTP 200 and OK. Google DNS returned the new address. Cloudflare's 1.1.1.1 resolver still returned the former apex address with 140 seconds remaining.
+
+Final recheck (2026-11-16 00:21 UTC): this workstation, Google DNS, and Cloudflare DNS returned 13.50.122.152 for both taskify.click and www.taskify.click. Both HTTPS health checks returned HTTP 200 with body OK.

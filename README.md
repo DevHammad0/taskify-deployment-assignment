@@ -17,6 +17,6 @@ No production `.env`, database password, SSH private key, or GitHub credential b
 - `scripts/cleanup-laravel-logs.sh`: compresses only old Laravel daily logs, expires old archives, and warns at the configured size limit.
 - `scripts/deploy-release.sh`: installs dependencies and migrations, rebuilds caches, atomically switches releases, and rolls back on a local health failure.
 
-After the domain A records point to `app-vm`, enable HTTPS with `sudo certbot --nginx --redirect -d taskify.click -d www.taskify.click`. Certbot renews the certificate using its system timer.
+The domain A records point to `app-vm`. HTTPS is enabled for both names, and Certbot renews the certificate using its system timer.
 
 See [`report.md`](report.md) for the implementation notes and evidence for each assignment task.

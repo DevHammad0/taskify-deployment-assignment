@@ -1,0 +1,19 @@
+Task 3 — GitHub Actions evidence
+
+Repository: DevHammad0/taskify-deployment-assignment (private)
+
+The workflow runs on every push to main and can be started manually. Tests must pass before the self-hosted runner deploys. It applies migrations, rebuilds Laravel's caches, and checks the public health page. A concurrency rule prevents overlapping deployments.
+
+Update 1 — Run 43778418653
+I changed the guestbook introduction. Tests, deployment, and the public health check passed.
+
+Update 2 — Run 43778544322
+I added an optional location field, its database migration, and displayed the value on the page. Tests, migration, deployment, and the public health check passed.
+
+Broken update — Run 43778647326
+I changed the allowed topic value from learning to the misspelling learnng. The test job failed. Deployment and public verification were skipped, so the previous working release remained online.
+
+Fix — Run 43778725045
+I corrected the topic value in Git. Tests, deployment, and the public health check passed.
+
+The self-hosted runner is registered on app-vm and runs as the non-root deployer user. The workflow uses the taskify-app runner label.

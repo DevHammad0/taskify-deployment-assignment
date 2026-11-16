@@ -24,7 +24,7 @@ class GuestbookController extends Controller
             'name' => ['required', 'string', 'max:80'],
             'location' => ['nullable', 'string', 'max:100'],
             'message' => ['required', 'string', 'max:1000'],
-            'topic' => ['required', 'string', 'in:general,work,learning'],
+            'topic' => ['required', 'string', 'in:general,work,learnng'],
         ]);
 
         GuestbookEntry::create($validated);

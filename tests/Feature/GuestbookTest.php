@@ -14,12 +14,14 @@ class GuestbookTest extends TestCase
     {
         $this->post(route('guestbook.store'), [
             'name' => 'Haroon',
+            'location' => 'Lab',
             'message' => 'Deployment survives a refresh.',
             'topic' => 'learning',
         ])->assertRedirect(route('guestbook.index'));
 
         $this->assertDatabaseHas('guestbook_entries', [
             'name' => 'Haroon',
+            'location' => 'Lab',
             'message' => 'Deployment survives a refresh.',
             'topic' => 'learning',
         ]);
@@ -27,6 +29,7 @@ class GuestbookTest extends TestCase
         $this->get(route('guestbook.index'))
             ->assertOk()
             ->assertSeeText('Deployment survives a refresh.')
+            ->assertSeeText('Lab')
             ->assertSeeText('Learning');
     }
 

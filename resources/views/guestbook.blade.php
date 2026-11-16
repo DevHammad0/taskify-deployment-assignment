@@ -31,6 +31,10 @@
         <input id="name" name="name" value="{{ old('name') }}" maxlength="80" required>
         @error('name') <p class="error">{{ $message }}</p> @enderror
 
+        <label for="location">Location (optional)</label>
+        <input id="location" name="location" value="{{ old('location') }}" maxlength="100">
+        @error('location') <p class="error">{{ $message }}</p> @enderror
+
         <label for="message">Your note</label>
         <textarea id="message" name="message" maxlength="1000" required>{{ old('message') }}</textarea>
         @error('message') <p class="error">{{ $message }}</p> @enderror
@@ -49,6 +53,7 @@
     @forelse ($entries as $entry)
         <article>
             <strong>{{ $entry->name }}</strong>
+            @if ($entry->location) <small class="muted"> · {{ $entry->location }}</small> @endif
             <small class="muted"> · {{ ucfirst($entry->topic) }}</small>
             <p>{{ $entry->message }}</p>
             <small class="muted">{{ $entry->created_at->toDayDateTimeString() }}</small>

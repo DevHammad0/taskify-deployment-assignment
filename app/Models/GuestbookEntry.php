@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class GuestbookEntry extends Model
 {
-    protected $fillable = ['name', 'message', 'topic'];
+    protected $fillable = ['name', 'location', 'message', 'topic'];
 }

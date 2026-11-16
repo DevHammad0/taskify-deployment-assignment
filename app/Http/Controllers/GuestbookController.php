@@ -22,6 +22,7 @@ class GuestbookController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:80'],
+            'location' => ['nullable', 'string', 'max:100'],
             'message' => ['required', 'string', 'max:1000'],
             'topic' => ['required', 'string', 'in:general,work,learning'],
         ]);
